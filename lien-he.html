@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Liên hệ | Tuýn Coffee</title>
+        <meta
+            name="description"
+            content="Liên hệ với Tuýn Coffee để đặt chỗ, gửi góp ý hoặc tìm đường đến quán cà phê.">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700&amp;family=Fraunces:wght@500;600&amp;display=swap&amp;subset=vietnamese"
+            rel="stylesheet">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <header>
+            <div class="wrap">
+                <a class="logo" href="index.html">Tuýn Coffee</a>
+                <button class="burger" aria-label="Mở menu">☰</button>
+                <nav>
+                    <a href="index.html">Trang chủ</a>
+                    <a href="gioi-thieu.html">Giới thiệu</a>
+                    <a href="thuc-don.html">Thực đơn</a>
+                    <a href="khong-gian.html">Không gian</a>
+                    <a href="khuyen-mai.html">Khuyến mãi</a>
+                    <a href="lien-he.html" class="on">Liên hệ</a>
+                </nav>
+            </div>
+        </header>
+
+        <div class="page-head">
+            <div class="wrap">
+                <h1>Liên hệ</h1>
+                <p>Đặt chỗ, hỏi thông tin hoặc gửi góp ý cho quán</p>
+            </div>
+        </div>
+
+        <section>
+            <div class="wrap two" style="align-items:start">
+                <div>
+                    <h2 class="title">Thông tin quán</h2>
+                    <p>665 – 667 – 669 Điện Biên Phủ, TP. Hồ Chí Minh (Trường Đại học Văn Hiến)<br><a href="tel:0357515227">0357 515 227</a><br>Mở cửa 7:00 – 22:00 mỗi ngày</p>
+                    <div class="map">
+                        <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=665+Dien+Bien+Phu+Ho+Chi+Minh">Mở bản đồ</a>
+                    </div>
+                </div>
+                <form id="contact" novalidate>
+                    <h2 class="title">Gửi tin nhắn</h2>
+                    <label>
+                        Họ tên
+                        <input name="name" autocomplete="name">
+                        <span class="err" data-for="name"></span>
+                    </label>
+                    <label>
+                        Email
+                        <input name="email" type="email" autocomplete="email">
+                        <span class="err" data-for="email"></span>
+                    </label>
+                    <label>
+                        Số điện thoại
+                        <input name="phone" type="tel" autocomplete="tel">
+                        <span class="err" data-for="phone"></span>
+                    </label>
+                    <label>
+                        Nội dung
+                        <textarea name="msg" rows="4"></textarea>
+                        <span class="err" data-for="msg"></span>
+                    </label>
+                    <button class="btn" type="submit">Gửi tin nhắn</button>
+                    <p class="ok" id="res" role="status"></p>
+                </form>
+            </div>
+        </section>
+
+        <footer>
+            <div class="wrap">
+                <div class="grid">
+                    <div>
+                        <h3>Tuýn Coffee</h3>
+                        <p>Cà phê rang mới mỗi ngày, trong một góc yên tĩnh giữa phố.</p>
+                    </div>
+                    <div>
+                        <h3>Liên hệ</h3>
+                        <p>665 – 667 – 669 Điện Biên Phủ, TP. Hồ Chí Minh (Trường Đại học Văn Hiến)<br>0357 515 227</p>
+                    </div>
+                    <div>
+                        <h3>Giờ mở cửa</h3>
+                        <p>Thứ Hai – Thứ Sáu: 7:00 – 22:00<br>Thứ Bảy – Chủ Nhật: 7:30 – 23:00</p>
+                    </div>
+                </div>
+                <p class="copy">© 2026 Tuýn Coffee. Sản phẩm tiểu luận môn học, Nguyễn Thanh Tuyến – 231A010780.</p>
+            </div>
+        </footer>
+
+        <button id="top" aria-label="Về đầu trang">↑</button>
+        <script src="js/main.js"></script>
+    </body>
+</html>

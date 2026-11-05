@@ -1,0 +1,524 @@
+/* ===== Biến màu dùng chung ===== */
+:root {
+    --bg: #f1f2ee;
+    --ink: #1f1a17;
+    --dark: #241913;
+    --green: #2e5e4e;
+    --gold: #c98a3d;
+    --line: #d9dcd4;
+    --card: #fff;
+}
+
+/* ===== Cài đặt chung ===== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    font: 16px/1.65 "Be Vietnam Pro", system-ui, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+}
+
+h1,
+h2,
+h3 {
+    font-family: Fraunces, Georgia, serif;
+    line-height: 1.2;
+}
+
+a {
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+}
+
+.wrap {
+    max-width: 1080px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+/* ===== Thanh menu (header) ===== */
+header {
+    background: var(--dark);
+    color: #f3ede6;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+
+header .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+}
+
+.logo {
+    font: 600 1.35rem Fraunces, Georgia, serif;
+    text-decoration: none;
+}
+
+nav {
+    display: flex;
+    gap: 6px;
+}
+
+nav a {
+    padding: 8px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background .2s;
+}
+
+nav a:hover {
+    background: #3a2b22;
+}
+
+nav a.on {
+    background: var(--gold);
+    color: #1b120c;
+}
+
+.burger {
+    display: none;
+    background: none;
+    border: 1px solid #6b5a4e;
+    color: #fff;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 1.1rem;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 2px;
+}
+
+/* ===== Khu vực nổi bật đầu Trang chủ (hero) ===== */
+.hero {
+    background-color: #241913;
+    background-image: linear-gradient(110deg, rgba(36,25,19,.94), rgba(36,25,19,.5)), url(../images/hero.jpg);
+    background-size: cover;
+    background-position: center 55%;
+    color: #f7f1ea;
+    padding: 110px 0 100px;
+}
+
+.hero h1 {
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    max-width: 14em;
+    font-weight: 600;
+}
+
+.hero p {
+    max-width: 34em;
+    margin: 18px 0 28px;
+    color: #e0d6cb;
+    font-size: 1.1rem;
+}
+
+/* ===== Nút bấm ===== */
+.btn {
+    display: inline-block;
+    background: var(--gold);
+    color: #1b120c;
+    padding: 12px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    border: 0;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: transform .2s;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn.alt {
+    background: none;
+    border: 1.5px solid #f7f1ea;
+    color: #f7f1ea;
+    margin-left: 8px;
+}
+
+/* ===== Các khối nội dung ===== */
+section {
+    padding: 64px 0;
+}
+
+.title {
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+.sub {
+    color: #5d564f;
+    margin-bottom: 32px;
+    max-width: 40em;
+}
+
+/* ===== Tiêu đề các trang con ===== */
+.page-head {
+    background: var(--dark);
+    color: #f7f1ea;
+    padding: 56px 0;
+}
+
+.page-head h1 {
+    font-size: 2.4rem;
+}
+
+.page-head p {
+    color: #d8cdc1;
+    margin-top: 8px;
+}
+
+/* ===== Lưới và ô ảnh ===== */
+.grid {
+    display: grid;
+    gap: 22px;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+}
+
+.two {
+    display: grid;
+    gap: 40px;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+
+.ph {
+    aspect-ratio: 4/3;
+    border-radius: 10px;
+    background-color: #6a4630;
+    overflow: hidden;
+}
+
+.ph img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ===== Thẻ món và thẻ khuyến mãi ===== */
+.card {
+    background: var(--card);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    transition: transform .2s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+}
+
+.card .ph {
+    border-radius: 0;
+    aspect-ratio: 1;
+}
+
+.card div.t {
+    padding: 14px 16px 18px;
+}
+
+.card h3 {
+    font-size: 1.1rem;
+}
+
+.card p {
+    font-size: .92rem;
+    color: #5d564f;
+    margin: 4px 0 8px;
+}
+
+.price {
+    color: var(--green);
+    font-weight: 700;
+}
+
+/* ===== Bộ lọc thực đơn ===== */
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 28px;
+}
+
+.filters button {
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1.5px solid var(--green);
+    background: none;
+    color: var(--green);
+    cursor: pointer;
+    font: inherit;
+}
+
+.filters button.on {
+    background: var(--green);
+    color: #fff;
+}
+
+/* ===== Dải khuyến mãi ===== */
+.band {
+    background: var(--green);
+    color: #fff;
+    padding: 36px 0;
+}
+
+.band .wrap {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.band h2 {
+    font-size: 1.6rem;
+}
+
+.band .btn {
+    background: #fff;
+    color: var(--green);
+}
+
+.badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: var(--gold);
+    color: #1b120c;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: .9rem;
+}
+
+.promo {
+    position: relative;
+}
+
+.promo .ph {
+    aspect-ratio: 16/10;
+}
+
+.feat h3 {
+    margin-bottom: 6px;
+}
+
+.feat {
+    border-left: 3px solid var(--gold);
+    padding-left: 16px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 460px;
+    background: var(--card);
+}
+
+td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--line);
+}
+
+td:last-child {
+    text-align: right;
+    font-weight: 600;
+}
+
+/* ===== Thư viện ảnh trang Không gian ===== */
+.tile {
+    cursor: pointer;
+    margin: 0;
+}
+
+.tile figcaption {
+    font-size: .9rem;
+    color: #5d564f;
+    margin-top: 6px;
+}
+
+.tile .ph {
+    transition: filter .2s;
+}
+
+.tile:hover .ph {
+    filter: brightness(1.1);
+}
+
+/* ===== Khung xem ảnh lớn (lightbox) ===== */
+#lb {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 10, 7, .92);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 50;
+    padding: 20px;
+}
+
+#lb.open {
+    display: flex;
+}
+
+#lb .ph {
+    width: min(900px, 92vw);
+    aspect-ratio: 4/3;
+}
+
+#lb p {
+    color: #eee;
+    margin-top: 12px;
+}
+
+#lb button {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    font-size: 2rem;
+    background: none;
+    border: 0;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* ===== Biểu mẫu liên hệ ===== */
+form {
+    display: grid;
+    gap: 14px;
+}
+
+label {
+    font-weight: 600;
+    font-size: .95rem;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1.5px solid #bfc3b9;
+    border-radius: 6px;
+    font: inherit;
+    margin-top: 4px;
+}
+
+.err {
+    display: block;
+    color: #b3261e;
+    font-size: .85rem;
+    min-height: 1.1em;
+}
+
+.ok {
+    color: var(--green);
+    font-weight: 600;
+}
+
+.map {
+    aspect-ratio: 16/9;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #cfd6cb, #aab8ae);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* ===== Chân trang ===== */
+footer {
+    background: var(--dark);
+    color: #cfc3b7;
+    padding: 40px 0 20px;
+    font-size: .95rem;
+}
+
+footer .grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+footer h3 {
+    color: #fff;
+    margin-bottom: 8px;
+    font-size: 1.05rem;
+}
+
+.copy {
+    border-top: 1px solid #45352b;
+    margin-top: 28px;
+    padding-top: 16px;
+    text-align: center;
+    font-size: .85rem;
+}
+
+/* ===== Nút lên đầu trang ===== */
+#top {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 0;
+    background: var(--gold);
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: none;
+}
+
+/* ===== Giao diện điện thoại (màn hình hẹp) ===== */
+@media (max-width: 760px) {
+    .burger {
+        display: block;
+    }
+
+    nav {
+        display: none;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: var(--dark);
+        flex-direction: column;
+        padding: 10px 20px;
+    }
+
+    nav.open {
+        display: flex;
+    }
+
+    .two {
+        grid-template-columns: 1fr;
+    }
+
+    .btn.alt {
+        margin: 10px 0 0;
+    }
+
+    .hero {
+        padding: 70px 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+    }
+}

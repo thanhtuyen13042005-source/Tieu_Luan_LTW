@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Thực đơn | Tuýn Coffee</title>
+        <meta
+            name="description"
+            content="Khám phá thực đơn đa dạng gồm cà phê, trà, sinh tố, đá xay và bánh ngọt tại Tuýn Coffee.">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700&amp;family=Fraunces:wght@500;600&amp;display=swap&amp;subset=vietnamese"
+            rel="stylesheet">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <header>
+            <div class="wrap">
+                <a class="logo" href="index.html">Tuýn Coffee</a>
+                <button class="burger" aria-label="Mở menu">☰</button>
+                <nav>
+                    <a href="index.html">Trang chủ</a>
+                    <a href="gioi-thieu.html">Giới thiệu</a>
+                    <a href="thuc-don.html" class="on">Thực đơn</a>
+                    <a href="khong-gian.html">Không gian</a>
+                    <a href="khuyen-mai.html">Khuyến mãi</a>
+                    <a href="lien-he.html">Liên hệ</a>
+                </nav>
+            </div>
+        </header>
+
+        <div class="page-head">
+            <div class="wrap">
+                <h1>Thực đơn</h1>
+                <p>Chọn nhóm món để xem nhanh. Giá đã bao gồm thuế.</p>
+            </div>
+        </div>
+
+        <section>
+            <div class="wrap">
+                <div class="filters">
+                    <button class="on" data-f="all">Tất cả</button>
+                    <button data-f="ca-phe">Cà phê</button>
+                    <button data-f="tra">Trà</button>
+                    <button data-f="sinh-to">Sinh tố và đá xay</button>
+                    <button data-f="banh">Bánh ngọt</button>
+                </div>
+                <div class="grid">
+                    <article class="card" data-cat="ca-phe">
+                        <div class="ph">
+                            <img src="images/cafe-den.jpg" alt="Cà phê đen đá">
+                        </div>
+                        <div class="t">
+                            <h3>Cà phê đen đá</h3>
+                            <p>Robusta rang đậm, đắng gọn, hậu ngọt.</p>
+                            <span class="price">29.000đ</span>
+                        </div>
+                    </article>
+                    <article class="card" data-cat="ca-phe">
+                        <div class="ph">
+                            <img src="images/cafe-sua.jpg" alt="Cà phê sữa">
+                        </div>
+                        <div class="t">
+                            <h3>Cà phê sữa</h3>
+                            <p>Vị béo vừa phải, uống mát lạnh.</p>
+                            <span class="price">35.000đ</span>
+                        </div>
+                    </article>
+                    <article class="card" data-cat="ca-phe">
+                        <div class="ph">
+                            <img src="images/bac-xiu.jpg" alt="Bạc xỉu">
+                        </div>
+                        <div class="t">
+                            <h3>Bạc xỉu</h3>
+                            <p>Nhiều sữa, ít cà phê, dịu và thơm.</p>
+                            <span class="price">39.000đ</span>
+                        </div>
+                    </article>
+                    <article class="card" data-cat="ca-phe">
+                        <div class="ph">
+                            <img src="images/latte.jpg" alt="Latte nghệ thuật">
+                        </div>
+                        <div class="t">
+                            <h3>Latte nghệ thuật</h3>
+                            <p>Espresso, sữa tươi và lớp foam mịn.</p>
+                            <span class="price">49.000đ</span>
+                        </div>
+                    </article>
+                    <article class="card" data-cat="tra">
+                        <div class="ph">
+                            <img src="images/tra-dao.jpg" alt="Trà đào cam sả">
+                        </div>
+                        <div class="t">
+                            <h3>Trà đào cam sả</h3>
+                            <p>Trà đen, đào miếng, cam và sả tươi.</p>
+                            <span class="price">45.000đ</span>
+                        </div>
+                    </article>
+                    <article class="card" data-cat="tra">
+                        <div class="ph">
+                            <img src="images/tra-vai.jpg" alt="Trà vải hoa hồng">
+                        </div>
+                        <div class="t">
+                            <h3>Trà vải hoa hồng</h3>
+                            <p>Thanh nhẹ, thơm mùi hoa hồng.</p>
+                            <span class="price">45.000đ</span>
+                        </div>
+                    </article>
+                    <article class="card" data-cat="sinh-to">
+                        <div class="ph">
+                            <img src="images/sinh-to.jpg" alt="Sinh tố bơ">
+                        </div>
+                        <div class="t">
+                            <h3>Sinh tố bơ</h3>
+                            <p>Bơ sáp xay mịn với sữa đặc.</p>
+                            <span class="price">49.000đ</span>
+                        </div>
+                    </article>
+                    <article class="card" data-cat="sinh-to">
+                        <div class="ph">
+                            <img src="images/da-xay.jpg" alt="Cà phê đá xay">
+                        </div>
+                        <div class="t">
+                            <h3>Cà phê đá xay</h3>
+                            <p>Cà phê xay cùng đá, phủ kem tươi.</p>
+                            <span class="price">55.000đ</span>
+                        </div>
+                    </article>
+                    <article class="card" data-cat="banh">
+                        <div class="ph">
+                            <img src="images/croissant.jpg" alt="Croissant bơ">
+                        </div>
+                        <div class="t">
+                            <h3>Croissant bơ</h3>
+                            <p>Nướng mới mỗi sáng, vỏ giòn.</p>
+                            <span class="price">39.000đ</span>
+                        </div>
+                    </article>
+                    <article class="card" data-cat="banh">
+                        <div class="ph">
+                            <img src="images/banh-ngot.jpg" alt="Bánh phô mai">
+                        </div>
+                        <div class="t">
+                            <h3>Bánh phô mai</h3>
+                            <p>Phô mai kem mềm, đế bánh quy.</p>
+                            <span class="price">45.000đ</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="wrap">
+                <div class="grid">
+                    <div>
+                        <h3>Tuýn Coffee</h3>
+                        <p>Cà phê rang mới mỗi ngày, trong một góc yên tĩnh giữa phố.</p>
+                    </div>
+                    <div>
+                        <h3>Liên hệ</h3>
+                        <p>665 – 667 – 669 Điện Biên Phủ, TP. Hồ Chí Minh (Trường Đại học Văn Hiến)<br>0357 515 227</p>
+                    </div>
+                    <div>
+                        <h3>Giờ mở cửa</h3>
+                        <p>Thứ Hai – Thứ Sáu: 7:00 – 22:00<br>Thứ Bảy – Chủ Nhật: 7:30 – 23:00</p>
+                    </div>
+                </div>
+                <p class="copy">© 2026 Tuýn Coffee. Sản phẩm tiểu luận môn học, Nguyễn Thanh Tuyến – 231A010780.</p>
+            </div>
+        </footer>
+
+        <button id="top" aria-label="Về đầu trang">↑</button>
+        <script src="js/main.js"></script>
+    </body>
+</html>
