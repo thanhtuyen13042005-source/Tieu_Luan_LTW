@@ -110,4 +110,4 @@ if (form) {
         }
         if (valid) form.reset();
     };
-}
+} 
