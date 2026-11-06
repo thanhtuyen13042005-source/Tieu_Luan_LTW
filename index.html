@@ -155,6 +155,73 @@
         </div>
 
         <button id="top" aria-label="Về đầu trang">↑</button>
-        <script src="js/main.js"></script>
+
+        <!-- Nhúng mã xử lý trực tiếp để chắc chắn chạy 100% -->
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                // 1. Menu Burger
+                const burger = document.querySelector(".burger");
+                const nav = document.querySelector("nav");
+                if (burger && nav) {
+                    burger.addEventListener("click", () => nav.classList.toggle("open"));
+                }
+
+                // 2. Bộ lọc thực đơn
+                const filterBtns = document.querySelectorAll(".filters button");
+                const cards = document.querySelectorAll(".grid .card");
+                if (filterBtns.length > 0 && cards.length > 0) {
+                    filterBtns.forEach(btn => {
+                        btn.addEventListener("click", () => {
+                            filterBtns.forEach(b => b.classList.remove("on"));
+                            btn.classList.add("on");
+                            const category = btn.getAttribute("data-f");
+                            cards.forEach(card => {
+                                const cardCat = card.getAttribute("data-cat");
+                                if (category === "all" || cardCat === category) {
+                                    card.style.display = "block";
+                                } else {
+                                    card.style.display = "none";
+                                }
+                            });
+                        });
+                    });
+                }
+
+                // 3. Lightbox (Phóng to ảnh)
+                const lb = document.getElementById("lb");
+                if (lb) {
+                    const lbImg = lb.querySelector("img");
+                    const lbText = lb.querySelector("p");
+                    const lbClose = lb.querySelector("button");
+                    const clickableImages = document.querySelectorAll(".card img, .ph img, .tile img");
+
+                    clickableImages.forEach(img => {
+                        if (img.closest("#lb")) return;
+                        img.style.cursor = "pointer";
+                        img.addEventListener("click", (e) => {
+                            e.preventDefault();
+                            let imgSrc = img.getAttribute("src");
+                            let imgAlt = img.getAttribute("alt") || "";
+                            let cardParent = img.closest(".card, .tile, figure");
+                            if (cardParent) {
+                                let titleEl = cardParent.querySelector("h3, figcaption");
+                                if (titleEl) imgAlt = titleEl.textContent;
+                            }
+                            if (lbImg) lbImg.setAttribute("src", imgSrc);
+                            if (lbText) lbText.textContent = imgAlt;
+                            lb.classList.add("open");
+                        });
+                    });
+
+                    const closeLb = () => {
+                        lb.classList.remove("open");
+                        if (lbImg) lbImg.setAttribute("src", "");
+                    };
+                    if (lbClose) lbClose.addEventListener("click", closeLb);
+                    lb.addEventListener("click", (e) => { if (e.target === lb) closeLb(); });
+                    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeLb(); });
+                }
+            });
+        </script>
     </body>
 </html>
