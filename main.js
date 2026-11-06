@@ -42,25 +42,38 @@ if (filterButtons.length > 0) {
     });
 }
 
-/* 4. Xem ảnh lớn ở trang Không gian (lightbox) */
+/* 4. Xem ảnh lớn ở trang Không gian (lightbox) - Đã tối ưu bắt mọi ảnh */
 const lightbox = $("#lb");
 if (lightbox) {
-    $$(".tile").forEach((tile) => {
-        tile.onclick = () => {
-            const photo = $("img", tile);
-            const lbImg = $("img", lightbox);
-            const lbText = $("p", lightbox);
-            const figcaption = $("figcaption", tile);
+    // Tìm tất cả các thẻ hình ảnh hoặc khung chứa ảnh (.tile, .ph, hoặc thẻ img độc lập)
+    const clickableItems = $$(".tile, .ph, section img");
 
-            if (photo && lbImg) {
-                lbImg.src = photo.src;
-                lbImg.alt = photo.alt;
-            }
-            if (lbText && figcaption) {
-                lbText.textContent = figcaption.textContent;
-            }
-            lightbox.classList.add("open");
-        };
+    clickableItems.forEach((item) => {
+        // Lấy thẻ img bên trong hoặc chính item nếu nó là img
+        const photo = item.tagName === "IMG" ? item : $("img", item);
+        
+        if (photo) {
+            // Đổi con trỏ chuột thành hình bàn tay để người dùng biết có thể bấm
+            const targetElement = item.tagName === "IMG" ? item.parentElement : item;
+            if (targetElement) targetElement.style.cursor = "pointer";
+
+            const triggerNode = item.tagName === "IMG" ? item : targetElement;
+            
+            triggerNode.onclick = () => {
+                const lbImg = $("img", lightbox);
+                const lbText = $("p", lightbox);
+                const figcaption = $("figcaption", item);
+
+                if (lbImg) {
+                    lbImg.src = photo.src;
+                    lbImg.alt = photo.alt;
+                }
+                if (lbText) {
+                    lbText.textContent = figcaption ? figcaption.textContent : (photo.alt || "");
+                }
+                lightbox.classList.add("open");
+            };
+        }
     });
 
     // Nhấn ra nền hoặc nút × để đóng
@@ -110,4 +123,4 @@ if (form) {
         }
         if (valid) form.reset();
     };
-} 
+}
