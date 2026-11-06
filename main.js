@@ -23,37 +23,42 @@ if (upButton) {
     };
 }
 
-/* 3. Lọc thực đơn theo nhóm món */
+/* 3. Lọc thực đơn theo nhóm món (Đã sửa lỗi không bị đơ) */
 const filterButtons = $$(".filters button");
 if (filterButtons.length > 0) {
     filterButtons.forEach((button) => {
         button.onclick = () => {
-            // Đổi màu nút đang chọn
-            filterButtons.forEach((b) => {
-                b.classList.toggle("on", b === button);
-            });
+            // Đổi trạng thái active của nút
+            filterButtons.forEach((b) => b.classList.toggle("on", b === button));
 
-            // Ẩn hoặc hiện từng thẻ món
-            $$(".card[data-cat]").forEach((card) => {
-                const show = button.dataset.f === "all" || card.dataset.cat === button.dataset.f;
-                card.hidden = !show;
-            });
+            const filterValue = button.dataset.f;
+            const cards = $$(".card");
+            
+            if (cards.length > 0) {
+                cards.forEach((card) => {
+                    if (!filterValue || filterValue === "all") {
+                        card.hidden = false;
+                    } else {
+                        const cat = card.dataset.cat;
+                        // Nếu card có phân loại cat thì lọc theo cat, nếu không có thì hiển thị tất cả để tránh bị ẩn hết
+                        card.hidden = cat ? (cat !== filterValue) : false;
+                    }
+                });
+            }
         };
     });
 }
 
-/* 4. Xem ảnh lớn ở trang Không gian (lightbox) - Đã tối ưu bắt mọi ảnh */
+/* 4. Xem ảnh lớn (Lightbox) cho toàn bộ các trang (Không gian, Thực đơn,...) */
 const lightbox = $("#lb");
 if (lightbox) {
-    // Tìm tất cả các thẻ hình ảnh hoặc khung chứa ảnh (.tile, .ph, hoặc thẻ img độc lập)
-    const clickableItems = $$(".tile, .ph, section img");
+    // Tìm tất cả các thành phần có chứa ảnh có thể bấm xem lớn
+    const clickableItems = $$(".tile, .ph, .card, section img");
 
     clickableItems.forEach((item) => {
-        // Lấy thẻ img bên trong hoặc chính item nếu nó là img
         const photo = item.tagName === "IMG" ? item : $("img", item);
         
         if (photo) {
-            // Đổi con trỏ chuột thành hình bàn tay để người dùng biết có thể bấm
             const targetElement = item.tagName === "IMG" ? item.parentElement : item;
             if (targetElement) targetElement.style.cursor = "pointer";
 
@@ -62,14 +67,15 @@ if (lightbox) {
             triggerNode.onclick = () => {
                 const lbImg = $("img", lightbox);
                 const lbText = $("p", lightbox);
-                const figcaption = $("figcaption", item);
+                // Lấy tiêu đề từ figcaption hoặc thẻ h3 gần nhất của món ăn
+                const captionNode = item.querySelector("figcaption") || item.querySelector("h3") || item.closest(".card")?.querySelector("h3");
 
                 if (lbImg) {
                     lbImg.src = photo.src;
                     lbImg.alt = photo.alt;
                 }
                 if (lbText) {
-                    lbText.textContent = figcaption ? figcaption.textContent : (photo.alt || "");
+                    lbText.textContent = captionNode ? captionNode.textContent : (photo.alt || "");
                 }
                 lightbox.classList.add("open");
             };
@@ -94,7 +100,6 @@ if (lightbox) {
 /* 5. Kiểm tra biểu mẫu liên hệ */
 const form = $("#contact");
 if (form) {
-    // Mỗi quy tắc trả về true nếu hợp lệ, hoặc câu thông báo lỗi
     const rules = {
         name: (v) => v.trim().length >= 2 || "Nhập họ tên (ít nhất 2 ký tự).",
         email: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) || "Email chưa đúng định dạng, ví dụ ten@email.com.",
