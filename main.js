@@ -1,131 +1,137 @@
-// Hàm rút gọn để chọn phần tử trên trang
-const $ = (selector, root = document) => root.querySelector(selector);
-const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+document.addEventListener("DOMContentLoaded", () => {
+    // 1. Xử lý Menu Burger cho thiết bị di động
+    const burger = document.querySelector(".burger");
+    const nav = document.querySelector("nav");
 
-/* 1. Menu hamburger trên điện thoại */
-const burger = $(".burger");
-if (burger) {
-    burger.onclick = () => {
-        const nav = $("nav");
-        if (nav) nav.classList.toggle("open");
-    };
-}
+    if (burger && nav) {
+        burger.addEventListener("click", () => {
+            nav.classList.toggle("open");
+        });
+    }
 
-/* 2. Nút trở về đầu trang (hiện khi cuộn xuống quá 400px) */
-const upButton = $("#top");
-if (upButton) {
-    addEventListener("scroll", () => {
-        upButton.style.display = scrollY > 400 ? "block" : "none";
-    });
+    // 2. Xử lý bộ lọc thực đơn (Tabs)
+    const filterBtns = document.querySelectorAll(".filters button");
+    const cards = document.querySelectorAll(".grid .card");
 
-    upButton.onclick = () => {
-        scrollTo({ top: 0, behavior: "smooth" });
-    };
-}
+    if (filterBtns.length > 0 && cards.length > 0) {
+        filterBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                // Đổi nút active
+                filterBtns.forEach(b => b.classList.remove("on"));
+                btn.classList.add("on");
 
-/* 3. Lọc thực đơn theo nhóm món (Đã sửa lỗi không bị đơ) */
-const filterButtons = $$(".filters button");
-if (filterButtons.length > 0) {
-    filterButtons.forEach((button) => {
-        button.onclick = () => {
-            // Đổi trạng thái active của nút
-            filterButtons.forEach((b) => b.classList.toggle("on", b === button));
+                const category = btn.getAttribute("data-f");
 
-            const filterValue = button.dataset.f;
-            const cards = $$(".card");
-            
-            if (cards.length > 0) {
-                cards.forEach((card) => {
-                    if (!filterValue || filterValue === "all") {
-                        card.hidden = false;
+                // Lọc card
+                cards.forEach(card => {
+                    const cardCat = card.getAttribute("data-cat");
+                    if (category === "all" || cardCat === category) {
+                        card.style.display = "block";
                     } else {
-                        const cat = card.dataset.cat;
-                        // Nếu card có phân loại cat thì lọc theo cat, nếu không có thì hiển thị tất cả để tránh bị ẩn hết
-                        card.hidden = cat ? (cat !== filterValue) : false;
+                        card.style.display = "none";
                     }
                 });
-            }
+            });
+        });
+    }
+
+    // 3. Xử lý Lightbox (Phóng to ảnh khi click)
+    const lb = document.getElementById("lb");
+    if (lb) {
+        const lbImg = lb.querySelector("img");
+        const lbText = lb.querySelector("p");
+        const lbClose = lb.querySelector("button");
+
+        // Chọn tất cả các ảnh có thể click để phóng to (trong .card, .ph, .tile)
+        const clickableImages = document.querySelectorAll(".card img, .ph img, .tile img");
+
+        clickableImages.forEach(img => {
+            // Tránh click nhầm ảnh trong lightbox hoặc icon
+            if (img.closest("#lb")) return;
+
+            img.style.cursor = "pointer";
+            img.addEventListener("click", (e) => {
+                e.preventDefault();
+                let imgSrc = img.getAttribute("src");
+                let imgAlt = img.getAttribute("alt") || "";
+
+                // Tìm tiêu đề mô tả gần nhất (nếu có)
+                let cardParent = img.closest(".card, .tile, figure");
+                if (cardParent) {
+                    let titleEl = cardParent.querySelector("h3, figcaption");
+                    if (titleEl) {
+                        imgAlt = titleEl.textContent;
+                    }
+                }
+
+                if (lbImg) lbImg.setAttribute("src", imgSrc);
+                if (lbText) lbText.textContent = imgAlt;
+                lb.classList.add("open");
+            });
+        });
+
+        // Đóng Lightbox khi bấm nút X hoặc click ra nền tối
+        const closeLightbox = () => {
+            lb.classList.remove("open");
+            if (lbImg) lbImg.setAttribute("src", "");
         };
-    });
-}
 
-/* 4. Xem ảnh lớn (Lightbox) cho toàn bộ các trang (Không gian, Thực đơn,...) */
-const lightbox = $("#lb");
-if (lightbox) {
-    // Tìm tất cả các thành phần có chứa ảnh có thể bấm xem lớn
-    const clickableItems = $$(".tile, .ph, .card, section img");
+        if (lbClose) lbClose.addEventListener("click", closeLightbox);
+        lb.addEventListener("click", (e) => {
+            if (e.target === lb) closeLightbox();
+        });
 
-    clickableItems.forEach((item) => {
-        const photo = item.tagName === "IMG" ? item : $("img", item);
-        
-        if (photo) {
-            const targetElement = item.tagName === "IMG" ? item.parentElement : item;
-            if (targetElement) targetElement.style.cursor = "pointer";
+        // Đóng bằng phím ESC
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") closeLightbox();
+        });
+    }
 
-            const triggerNode = item.tagName === "IMG" ? item : targetElement;
-            
-            triggerNode.onclick = () => {
-                const lbImg = $("img", lightbox);
-                const lbText = $("p", lightbox);
-                // Lấy tiêu đề từ figcaption hoặc thẻ h3 gần nhất của món ăn
-                const captionNode = item.querySelector("figcaption") || item.querySelector("h3") || item.closest(".card")?.querySelector("h3");
-
-                if (lbImg) {
-                    lbImg.src = photo.src;
-                    lbImg.alt = photo.alt;
-                }
-                if (lbText) {
-                    lbText.textContent = captionNode ? captionNode.textContent : (photo.alt || "");
-                }
-                lightbox.classList.add("open");
-            };
-        }
-    });
-
-    // Nhấn ra nền hoặc nút × để đóng
-    lightbox.onclick = (e) => {
-        if (e.target === lightbox || e.target.tagName === "BUTTON") {
-            lightbox.classList.remove("open");
-        }
-    };
-
-    // Nhấn phím Esc để đóng
-    addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-            lightbox.classList.remove("open");
-        }
-    });
-}
-
-/* 5. Kiểm tra biểu mẫu liên hệ */
-const form = $("#contact");
-if (form) {
-    const rules = {
-        name: (v) => v.trim().length >= 2 || "Nhập họ tên (ít nhất 2 ký tự).",
-        email: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) || "Email chưa đúng định dạng, ví dụ ten@email.com.",
-        phone: (v) => /^(0|\+84)\d{9}$/.test(v.replace(/\s/g, "")) || "Số điện thoại gồm 10 số, bắt đầu bằng 0.",
-        msg: (v) => v.trim().length >= 10 || "Nội dung cần ít nhất 10 ký tự."
-    };
-
-    form.onsubmit = (e) => {
-        e.preventDefault();
-        let valid = true;
-
-        for (const field in rules) {
-            const inputElem = form.elements[field];
-            const errElem = $(`.err[data-for=${field}]`);
-            
-            if (inputElem && errElem) {
-                const result = rules[field](inputElem.value);
-                errElem.textContent = result === true ? "" : result;
-                if (result !== true) valid = false;
+    // 4. Xử lý nút cuộn về đầu trang (Back to top)
+    const topBtn = document.getElementById("top");
+    if (topBtn) {
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 300) {
+                topBtn.style.display = "block";
+            } else {
+                topBtn.style.display = "none";
             }
-        }
+        });
 
-        const resElem = $("#res");
-        if (resElem) {
-            resElem.textContent = valid ? "Đã gửi! Quán sẽ phản hồi bạn sớm nhất." : "";
-        }
-        if (valid) form.reset();
-    };
-}
+        topBtn.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+    }
+
+    // 5. Xử lý kiểm tra form liên hệ đơn giản (nếu có trang liên hệ)
+    const contactForm = document.getElementById("contact");
+    if (contactForm) {
+        contactForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            let isValid = true;
+
+            const nameInput = contactForm.querySelector("input[name='name']");
+            const emailInput = contactForm.querySelector("input[name='email']");
+            const resMsg = document.getElementById("res");
+
+            if (nameInput && nameInput.value.trim() === "") {
+                isValid = false;
+                let errSpan = contactForm.querySelector(".err[data-for='name']");
+                if (errSpan) errSpan.textContent = "Vui lòng nhập họ tên của bạn.";
+            }
+
+            if (emailInput && (emailInput.value.trim() === "" || !emailInput.value.includes("@"))) {
+                isValid = false;
+                let errSpan = contactForm.querySelector(".err[data-for='email']");
+                if (errSpan) errSpan.textContent = "Vui lòng nhập email hợp lệ.";
+            }
+
+            if (isValid) {
+                if (resMsg) {
+                    resMsg.textContent = "Gửi tin nhắn thành công! Cảm ơn bạn đã góp ý.";
+                }
+                contactForm.reset();
+            }
+        });
+    }
+});
